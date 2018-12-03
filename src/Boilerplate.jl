@@ -67,6 +67,7 @@ function web_display(port=6677, echarts=true)
                 title: { text: 'Line Plot' },
                 xAxis: { type: 'value' },
                 yAxis: { type: 'value' },
+                legend: { width: 400 },
                 tooltip: { trigger: 'axis' },
                 dataZoom: [{
                     type: 'slider',
@@ -76,6 +77,8 @@ function web_display(port=6677, echarts=true)
                 }],
                 series: [{
                     type: 'line',
+                    name: 'rtt',
+                    smooth: true,
                     data: [[2,3],
                            [4,5],
                            [6,6]]
@@ -94,7 +97,7 @@ function sqlite_connect(path=":memory:")
     Core.eval(Main, quote
         using SQLite
 
-        const db = SQLite.DB(path)
+        const db = SQLite.DB($path)
         q(x...) = SQLite.query(db, x...) |> DataFrame
         macro q_str(x)
             :( SQLite.query(db, $x) |> DataFrame )
