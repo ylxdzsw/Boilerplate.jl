@@ -27,9 +27,6 @@ function load_std()
         using Test
         using UUIDs
         using Unicode
-
-        using OhMyJulia
-        using JsonBuilder
     end
 
     @__MODULE__

@@ -1,5 +1,7 @@
 module Boilerplate
+    include("load_snippets.jl")
     include("load_std.jl")
+    include("setup_repl.jl")
     include("web_display.jl")
     include("sqlite_connect.jl")
 end
