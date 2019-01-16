@@ -99,6 +99,24 @@ function load_snippets()
                 }]
             }\""")
             ```
+            """,
+
+            pie = md"""
+            ### Pie Plot
+
+            ```
+            plot(@json \"""{
+                backgroundColor: 'transparent',
+                title: { text: $x },
+                tooltip: { trigger: 'item', formatter: '{b} {d}%' },
+                series: [{
+                    type: 'pie',
+                    name: $x,
+                    radius: ['50%', '70%'],
+                    data: $([(name=d[i, 1], value=d[i, 2]) for i in 1:nrow(d)])
+                }]
+            }\""")
+            ```
             """
         )
     end
