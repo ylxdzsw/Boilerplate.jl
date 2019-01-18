@@ -107,13 +107,14 @@ function load_snippets()
             ```
             plot(@json \"""{
                 backgroundColor: 'transparent',
-                title: { text: $x },
+                title: { text: 'pie' },
                 tooltip: { trigger: 'item', formatter: '{b} {d}%' },
                 series: [{
                     type: 'pie',
-                    name: $x,
+                    name: 'pie',
                     radius: ['50%', '70%'],
-                    data: $([(name=d[i, 1], value=d[i, 2]) for i in 1:nrow(d)])
+                    data: [{name: 'a', value: 2},
+                           {name: 'b', value: 3}]
                 }]
             }\""")
             ```

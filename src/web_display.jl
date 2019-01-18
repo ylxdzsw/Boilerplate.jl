@@ -1,4 +1,4 @@
-function web_display(port=6677, echarts=true)
+function web_display(port=6677, echarts=true, open=true)
     ENV["WEB_DISPLAY_THEME"] = "dark"
     ENV["WEB_DISPLAY_NOTEXT"] = "true"
     ENV["WEB_DISPLAY_PORT"] = port
@@ -12,11 +12,13 @@ function web_display(port=6677, echarts=true)
                 <script src="http://echarts.baidu.com/asset/theme/dark.js"></script>
             """
 
-            plot(json::String, id=randstring(12)) = AS("text/html", """
-                <figure id="$id" style="width:600px; height:360px; margin: 0;"></figure>
+            plot(json::String, id=randstring(12); height=360) = HTML("""
+                <figure id="$id" style="width:600px; height:$(height)px; margin: 0"></figure>
                 <script> echarts.init(document.getElementById('$id'), 'dark').setOption($json) </script>
             """)
         end
+
+        open && run(`$(ENV["BROWSER"]) --app=http://127.0.0.1:$port`, wait=false)
     end
 
     @__MODULE__
