@@ -18,7 +18,13 @@ function web_display(port=6677, echarts=true, open=true)
             """)
         end
 
-        open && run(`$(ENV["BROWSER"]) --app=http://127.0.0.1:$port`, wait=false)
+        if $open
+            # TODO: support the other two operation systems
+            let browser = try ENV["BROWSER"] catch; "xdg-open" end, port = $port
+                occursin("chrom", browser) ? run(`$browser --app=http://127.0.0.1:$port`, wait=false) :
+                                             run(`$browser http://127.0.0.1:$port`, wait=false)
+            end
+        end
     end
 
     @__MODULE__
