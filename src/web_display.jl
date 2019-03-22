@@ -1,4 +1,4 @@
-function web_display(port=6677, echarts=true, open=true)
+function web_display(port=6677; echarts=true, open=true, heartbeat=true)
     ENV["WEB_DISPLAY_THEME"] = "dark"
     ENV["WEB_DISPLAY_NOTEXT"] = "true"
     ENV["WEB_DISPLAY_PORT"] = port
@@ -21,8 +21,19 @@ function web_display(port=6677, echarts=true, open=true)
         if $open
             # TODO: support the other two operation systems
             let browser = try ENV["BROWSER"] catch; "xdg-open" end, port = $port
-                occursin("chrom", browser) ? run(`$browser --app=http://127.0.0.1:$port`, wait=false) :
-                                             run(`$browser http://127.0.0.1:$port`, wait=false)
+                try
+                    occursin("chrom", browser) ? run(`$browser --app=http://127.0.0.1:$port`, wait=false) :
+                                                 run(`$browser http://127.0.0.1:$port`, wait=false)
+                catch
+                    @warn "cannot open browser. Visit http://127.0.0.1:$port"
+                end
+            end
+        end
+
+        if $heartbeat
+            @async while true
+                sleep(2)
+                notify(WebDisplay._display.cond)
             end
         end
     end
