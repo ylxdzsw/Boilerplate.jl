@@ -8,8 +8,8 @@ function web_display(port=6677; echarts=true, open=true, heartbeat=true)
 
         if $echarts
             WebDisplay.extra_header[] = """
-                <script src="http://echarts.baidu.com/dist/echarts.min.js"></script>
-                <script src="http://echarts.baidu.com/asset/theme/dark.js"></script>
+                <script src="https://gdrive.ylxdzsw.com/assets/echarts.min.js"></script>
+                <script src="https://gdrive.ylxdzsw.com/assets/dark.js"></script>
             """
 
             plot(json::String, id=randstring(12); height=360) = HTML("""
